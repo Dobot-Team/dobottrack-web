@@ -1,0 +1,66 @@
+{
+  "processing": "Audio tracks removed; H.264/yuv420p; max edge 1280; CRF 22; faststart",
+  "videos": [
+    {
+      "source_file": "VID_20261109_112438.mp4",
+      "source_sha256": "05b1e2d28a5b42e6d0681708f1a836a938b594aa8732a8e2e31458a2251d4360",
+      "video": "real-vid_20261109_112438-masked-silent-ee0945ad70.mp4",
+      "poster": "real-vid_20261109_112438-masked-silent-ee0945ad70.webp",
+      "video_sha256": "ee0945ad701d7a959c234e8608511d43a88adc61820d05d958e127d4c4c7457c",
+      "width": 720,
+      "height": 1280,
+      "duration_seconds": 51.067,
+      "size_bytes": 19430076,
+      "audio_streams": 0,
+      "privacy_processing": "Per-frame person/head and face detection; expanded coarse pixelation; temporal coverage across adjacent frames"
+    },
+    {
+      "source_file": "VID_20261104_151939.mp4",
+      "source_sha256": "441d40fd134c41d71cc2a35f64f81a3fca42f1ac4bfd5cfb1fd236a7e8fb82f8",
+      "video": "real-vid_20261104_151939-silent-7daec1c72f.mp4",
+      "poster": "real-vid_20261104_151939-silent-7daec1c72f.webp",
+      "video_sha256": "7daec1c72fd7700ccdf8b71c7b31b1b96ac1682072241b904ba76bb82c503e31",
+      "width": 720,
+      "height": 1280,
+      "duration_seconds": 74.767,
+      "size_bytes": 75490663,
+      "audio_streams": 0
+    },
+    {
+      "source_file": "VID_20261104_155639.mp4",
+      "source_sha256": "8fa81a2ade0a00149121e07065dee82886752da5cb75845ba5a670bb8e2131c0",
+      "video": "real-vid_20261104_155639-silent-655e469d67.mp4",
+      "poster": "real-vid_20261104_155639-silent-655e469d67.webp",
+      "video_sha256": "655e469d67f4b03807cfaf97745c407068020d9a35e94ded38c065d6a31c078e",
+      "width": 960,
+      "height": 1280,
+      "duration_seconds": 36.334,
+      "size_bytes": 37067483,
+      "audio_streams": 0
+    },
+    {
+      "source_file": "VID_20261104_155911.mp4",
+      "source_sha256": "362d0b35287adf5b759bb87183c59cdd7cd9f3e23c400408cbb14be8a06f6d4c",
+      "video": "real-vid_20261104_155911-silent-37dabe84dd.mp4",
+      "poster": "real-vid_20261104_155911-silent-37dabe84dd.webp",
+      "video_sha256": "37dabe84dd5990fe61788923666a56a56bfd8a83c3613289c2f102e84008920b",
+      "width": 960,
+      "height": 1280,
+      "duration_seconds": 29.5,
+      "size_bytes": 30296413,
+      "audio_streams": 0
+    },
+    {
+      "source_file": "VID_20261104_155713.mp4",
+      "source_sha256": "99042e2bf93cf329330bbb94261a2d57ec51d84dea403b0002063e7fcf91423a",
+      "video": "real-vid_20261104_155713-silent-8eef099aee.mp4",
+      "poster": "real-vid_20261104_155713-silent-8eef099aee.webp",
+      "video_sha256": "8eef099aee76c7fd790db010b43dcf8eef51c4c7d2b968bb1180bc04be688c45",
+      "width": 1280,
+      "height": 720,
+      "duration_seconds": 20.8,
+      "size_bytes": 8414961,
+      "audio_streams": 0
+    }
+  ]
+}

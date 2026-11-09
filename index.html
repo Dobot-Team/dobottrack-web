@@ -1,0 +1,878 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>DobotTrack: Target-Grounded Person Tracking</title>
+    <meta
+      content="DobotTrack: Target-Grounded Vision-Language-Action Learning for Embodied Person Tracking."
+      name="description"
+    />
+    <link href="assets/styles.css" rel="stylesheet" />
+    <script defer="" src="assets/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#abstract">Skip to content</a>
+    <header class="project-header">
+      <h1>
+        DobotTrack: Target-Grounded Vision-Language-Action Learning for Embodied
+        Person Tracking
+      </h1>
+      <p class="authors">
+        Shengjun Deng<sup>1</sup>, Yinghan Zhang<sup>2,*</sup>, Chengrui
+        Wei<sup>3</sup>, Liu Liang<sup>3</sup>,<br class="desktop-break" />
+        Songyuan Liu<sup>3</sup>, Pengkun Zheng<sup>3,†</sup>, Yajun
+        Zheng<sup>3</sup>, Ying Zhang<sup>3</sup>,<br class="desktop-break" />
+        Yuan Tian<sup>3</sup>, Xi Li<sup>3</sup>, Teng Wang<sup>4,*</sup>
+      </p>
+      <p class="affiliations">
+        <span><sup>1</sup>Foshan University</span>
+        <span><sup>2</sup>Tsinghua University</span><br /><span
+          ><sup>3</sup>Dobot Robotics</span
+        >
+        <span><sup>4</sup>The University of Hong Kong</span>
+      </p>
+      <p class="author-note">* Corresponding authors   † Project lead</p>
+      <div class="resources">
+        <a class="resource-link" href="https://arxiv.org/abs/2611.09041"><svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg><span>arXiv</span></a>
+        <a class="resource-link" href="https://github.com/Dobot-Team/dobot_track"><svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7m12 5v-3.8c0-1.1-.1-1.6-.6-2.1 3.3-.4 6.6-1.6 6.6-7A5.4 5.4 0 0 0 19.5 5c.2-1 .1-2-.3-3 0 0-1.2-.4-4 1.5a13.8 13.8 0 0 0-7.2 0C5.2 1.6 4 2 4 2c-.4 1-.5 2-.3 3A5.4 5.4 0 0 0 2.2 9c0 5.4 3.3 6.6 6.6 7-.5.5-.7 1.2-.6 2.1v3.8"/></svg><span>GitHub</span></a>
+        <a class="resource-link" href="#simulation"><svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m10 8 6 4-6 4z"/></svg><span>Video</span></a>
+        <span class="resource-link is-unavailable" role="link" aria-disabled="true"><svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 4 18 4 18 0V5M3 12c0 4 18 4 18 0"/></svg><span>Dataset</span><span class="resource-status">Coming soon</span></span>
+        <a class="resource-link" href="#citation"><svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 5H6a3 3 0 0 0-3 3v4h6V5Zm12 0h-3a3 3 0 0 0-3 3v4h6V5ZM9 12c0 4-2 6-5 7m17-7c0 4-2 6-5 7"/></svg><span>BibTeX</span></a>
+      </div>
+    </header>
+    <main>
+      <section id="abstract">
+        <div class="section-inner">
+          <h2>Abstract</h2>
+          <p>
+            Language-guided embodied person tracking requires a mobile agent to identify
+            a target from a referring description and consistently follow the target
+            under egocentric observations. We present DobotTrack, a target-grounded
+            vision-language-action (VLA) framework that integrates auxiliary grounding
+            supervision with efficient temporal modeling. We systematically investigate
+            five auxiliary tasks—person segmentation, bounding-box grounding,
+            visual-spatial classification (VSC), future DINO feature prediction, and
+            future-frame prediction—and adopt complementary mask and bounding-box
+            supervision to enhance target delineation and localization. We introduce
+            Q-identity, a task-aware historical visual compression module that leverages
+            target-grounding predictions to selectively preserve identity-discriminative
+            appearance features and spatial cues in compact historical tokens. On
+            EVT-Bench, our 0.8B-parameter model achieves an average success rate of
+            77.9%, exceeding OmTrackVLA by 16.9 percentage points across the three
+            tasks. We further construct a real-world person-following dataset collected
+            using a quadruped robot, comprising 126 episodes and 596,323 mask-annotated
+            frames. The target masks enable automatic derivation of bounding boxes and
+            visual-spatial labels encoding horizontal position and apparent image scale,
+            providing additional grounding supervision without separate manual
+            annotation of these labels. Together, our framework and annotation pipeline
+            support learning target-grounded tracking policies from simulated and
+            real-world data.
+          </p>
+        </div>
+      </section>
+      <section id="method">
+        <div class="section-inner">
+          <h2>DobotTrack Overview</h2>
+          <p class="section-intro">
+            DobotTrack is a target-grounded VLA framework for language-guided
+            person following. We systematically study auxiliary supervision and
+            combine mask supervision for learning target representations with
+            box supervision for spatial localization. Q-identity feeds past
+            target-grounding predictions back into visual history compression,
+            preserving target appearance and scene context in compact tokens
+            for trajectory prediction. We also contribute a quadruped-collected
+            dataset with 126 following episodes and 596,323 mask-annotated
+            frames, together with derived boxes, spatial labels, and future
+            waypoints for learning from simulated and real-world data.
+          </p>
+          <figure class="paper-figure">
+            <a
+              aria-label="Open full-resolution figure: Overview of DobotTrack: task heads with illustrative mask, box, and trajectory overlays on the same current frame on the left; Q-identity grounding-guided visual history compression on the right."
+              class="figure-link"
+              href="assets/architecture-3117bc067211.pdf"
+              rel="noopener"
+              target="_blank"
+              ><img
+                alt="Overview of DobotTrack: task heads with illustrative mask, box, and trajectory overlays on the same current frame on the left; Q-identity grounding-guided visual history compression on the right."
+                height="1300"
+                loading="lazy"
+                src="assets/architecture-ac3b37fac227.webp"
+                width="2400"
+            /></a>
+          </figure>
+        </div>
+      </section>
+      <section id="dataset">
+        <div class="section-inner">
+          <p class="section-label">
+            From real recordings to training supervision
+          </p>
+          <h2>Real-world Tracking Dataset</h2>
+          <p class="section-intro">
+            Indoor and outdoor following, paired with target descriptions, dense
+            annotations, and future robot motion.
+          </p>
+          <figure class="paper-figure">
+            <a
+              aria-label="Open full-resolution figure: Real-world tracking dataset: 10.2 hours of data, indoor and outdoor distributions, target diversity, and examples with masks, boxes, and ground-truth trajectories."
+              class="figure-link"
+              href="assets/real_world.pdf"
+              rel="noopener"
+              target="_blank"
+              ><img
+                alt="Real-world tracking dataset: 10.2 hours of data, indoor and outdoor distributions, target diversity, and examples with masks, boxes, and ground-truth trajectories."
+                height="1057"
+                loading="lazy"
+                src="assets/real_world.webp"
+                width="2400"
+            /></a>
+            <figcaption>
+              <strong>Data coverage and annotation.</strong> Left: recording
+              conditions, target diversity, and supervision types. Right: indoor
+              STT, outdoor STT, and outdoor DT examples with target masks,
+              boxes, and ground-truth trajectories.
+            </figcaption>
+          </figure>
+          <div class="dataset-facts">
+            <p>
+              <strong>10.2 hours</strong><span>126 following episodes</span>
+            </p>
+            <p>
+              <strong>596,323 frames</strong
+              ><span>with target-mask annotations</span>
+            </p>
+            <p>
+              <strong>Indoor &amp; outdoor</strong
+              ><span>coverage across following scenes</span>
+            </p>
+          </div>
+          <p class="dataset-description">
+            Robot motion is collected through human teleoperation and an expert
+            model. Target masks yield bounding boxes and structured
+            visual-spatial labels. The examples above show dataset ground truth.
+          </p>
+        </div>
+      </section>
+      <section id="simulation">
+        <div class="section-inner">
+          <h2>Simulation Experiments</h2>
+
+          <div class="video-stage" data-video-slider="simulation">
+            <button class="video-stage-arrow previous" id="simulation-prev"
+              aria-controls="simulation-track" aria-label="Previous video" type="button">←</button>
+            <button class="video-stage-arrow next" id="simulation-next"
+              aria-controls="simulation-track" aria-label="Next video" type="button">→</button>
+          <div
+            aria-label="Simulation video carousel. Use left and right arrow keys to browse."
+            aria-roledescription="carousel"
+            class="simulation-track"
+            id="simulation-track"
+            role="region"
+            tabindex="0"
+          >
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Follow the
+                woman wearing a dark gray armored outfit."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Follow the
+                woman wearing a dark gray armored outfit.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Pursue the
+                first individual in your path."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Pursue the
+                first individual in your path.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Stay behind
+                the person in a dark blue suit and gold buttons combination."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-03.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-03.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-03.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Stay behind
+                the person in a dark blue suit and gold buttons combination.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Track the person in front of you."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-89.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-89.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-89.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Track the
+                person in front of you.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Pursue the individual in a red and black armored costume."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-26.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-26.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-26.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Pursue the
+                individual in a red and black armored costume.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Pursue the first individual in your path."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-81.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-81.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-81.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Pursue the
+                first individual in your path.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Track the man
+                wearing a maroon and black suit with a white shirt and purple
+                tie."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-10.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-10.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-10.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Track the man
+                wearing a maroon and black suit with a white shirt and purple
+                tie.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Stay behind the first person you detect."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-66.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-66.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-66.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Stay behind
+                the first person you detect.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Follow the person dressed in a black suit and white shirt."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-15.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-15.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-15.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Follow the
+                person dressed in a black suit and white shirt.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Stay behind the first person you detect."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-62.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-62.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-62.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Stay behind
+                the first person you detect.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Walk after
+                the man with a light gray three-piece suit and a blue tie."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-25.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-25.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-25.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Walk after
+                the man with a light gray three-piece suit and a blue tie.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Stay behind the first person you detect."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-69.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-69.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-69.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Stay behind
+                the first person you detect.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Go after the
+                person with a black leather jacket and red accents."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-stt.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-stt.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-stt.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Go after the
+                person with a black leather jacket and red accents.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Follow the
+                person dressed in a light gray three-piece suit and a blue tie."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-stt-46.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-stt-46.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-stt-46.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Follow the
+                person dressed in a light gray three-piece suit and a blue tie.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Follow the person dressed in an olive green shirt and brown pants."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-23.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-23.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-23.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Follow the
+                person dressed in an olive green shirt and brown pants.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Pursue the first individual you encounter."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-80.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-80.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-80.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Pursue the
+                first individual you encounter.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Pursue the individual dressed in a black leather jacket with gold details."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-06.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-06.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-06.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Pursue the
+                individual dressed in a black leather jacket with gold details.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Follow the person directly in front of you."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-82.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-82.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-82.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Follow the
+                person directly in front of you.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Go after the man with a black armored suit and glowing white chest plates."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-04.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-04.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-04.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Go after the
+                man with a black armored suit and glowing white chest plates.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Stay behind the first person you detect."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-76.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-76.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-76.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Stay behind
+                the first person you detect.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Follow the person wearing a black and silver Darth Vader costume."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-29.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-29.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-29.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Follow the
+                person wearing a black and silver Darth Vader costume.”
+              </figcaption>
+            </figure>
+            
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Stay behind the woman wearing a dark gray armored suit."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-dt-18.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-dt-18.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-dt-18.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Stay behind
+                the woman wearing a dark gray armored suit.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Follow the first person in your line of sight."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-at-84.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-at-84.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-at-84.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Follow the
+                first person in your line of sight.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Track the person wearing a black and silver Darth Vader costume."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-stt-31.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-stt-31.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-stt-31.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Track the
+                person wearing a black and silver Darth Vader costume.”
+              </figcaption>
+            </figure>
+            <figure class="simulation-example">
+              <video
+                aria-label="Simulated person-following rollout. Instruction: Stay behind the person in a red outfit with black accents."
+                controls=""
+                height="384"
+                loop=""
+                muted=""
+                playsinline=""
+                poster="assets/videos/simulation-stt-41.webp"
+                preload="none"
+                width="384"
+              >
+                <source
+                  src="assets/videos/simulation-stt-41.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video.
+                <a href="assets/videos/simulation-stt-41.mp4">Open video</a>.
+              </video>
+              <figcaption>
+                <span class="instruction-label">Instruction</span>“Stay behind
+                the person in a red outfit with black accents.”
+              </figcaption>
+            </figure>
+          </div>
+          </div>
+        </div>
+      </section>
+      <section id="experiments">
+        <div class="section-inner">
+          <h2>Real-world Display</h2>
+
+          <div class="video-stage" data-video-slider="real-world">
+            <button class="video-stage-arrow previous" id="real-world-prev"
+              aria-controls="real-world-track" aria-label="Previous video" type="button">←</button>
+            <button class="video-stage-arrow next" id="real-world-next"
+              aria-controls="real-world-track" aria-label="Next video" type="button">→</button>
+          <div class="simulation-track real-world-videos" id="real-world-track"
+            aria-label="Real-world experiment videos" role="region" tabindex="0">
+            <figure class="simulation-example real-world-example">
+              <video aria-label="DobotTrack real-world person-following experiment 1"
+                controls loop muted playsinline preload="none"
+                width="720" height="1280"
+                style="--video-ratio: 720 / 1280"
+                poster="assets/videos/real-vid_20261109_112438-masked-silent-ee0945ad70.webp">
+                <source src="assets/videos/real-vid_20261109_112438-masked-silent-ee0945ad70.mp4" type="video/mp4" />
+                Your browser does not support embedded video.
+                <a href="assets/videos/real-vid_20261109_112438-masked-silent-ee0945ad70.mp4">Open video</a>.
+              </video>
+            </figure>
+            <figure class="simulation-example real-world-example">
+              <video aria-label="DobotTrack real-world person-following experiment 2"
+                controls loop muted playsinline preload="none"
+                width="720" height="1280"
+                style="--video-ratio: 720 / 1280"
+                poster="assets/videos/real-vid_20261104_151939-silent-7daec1c72f.webp">
+                <source src="assets/videos/real-vid_20261104_151939-silent-7daec1c72f.mp4" type="video/mp4" />
+                Your browser does not support embedded video.
+                <a href="assets/videos/real-vid_20261104_151939-silent-7daec1c72f.mp4">Open video</a>.
+              </video>
+            </figure>
+            <figure class="simulation-example real-world-example">
+              <video aria-label="DobotTrack real-world person-following experiment 3"
+                controls loop muted playsinline preload="none"
+                width="960" height="1280"
+                style="--video-ratio: 960 / 1280"
+                poster="assets/videos/real-vid_20261104_155639-silent-655e469d67.webp">
+                <source src="assets/videos/real-vid_20261104_155639-silent-655e469d67.mp4" type="video/mp4" />
+                Your browser does not support embedded video.
+                <a href="assets/videos/real-vid_20261104_155639-silent-655e469d67.mp4">Open video</a>.
+              </video>
+            </figure>
+            <figure class="simulation-example real-world-example">
+              <video aria-label="DobotTrack real-world person-following experiment 4"
+                controls loop muted playsinline preload="none"
+                width="960" height="1280"
+                style="--video-ratio: 960 / 1280"
+                poster="assets/videos/real-vid_20261104_155911-silent-37dabe84dd.webp">
+                <source src="assets/videos/real-vid_20261104_155911-silent-37dabe84dd.mp4" type="video/mp4" />
+                Your browser does not support embedded video.
+                <a href="assets/videos/real-vid_20261104_155911-silent-37dabe84dd.mp4">Open video</a>.
+              </video>
+            </figure>
+            <figure class="simulation-example real-world-example landscape">
+              <video aria-label="DobotTrack real-world person-following experiment 5"
+                controls loop muted playsinline preload="none"
+                width="1280" height="720"
+                style="--video-ratio: 1280 / 720"
+                poster="assets/videos/real-vid_20261104_155713-silent-8eef099aee.webp">
+                <source src="assets/videos/real-vid_20261104_155713-silent-8eef099aee.mp4" type="video/mp4" />
+                Your browser does not support embedded video.
+                <a href="assets/videos/real-vid_20261104_155713-silent-8eef099aee.mp4">Open video</a>.
+              </video>
+            </figure>
+          </div>
+          </div>
+        </div>
+      </section>
+      <section id="citation">
+        <div class="section-inner">
+          <div class="citation-heading">
+            <h2>BibTeX</h2>
+            <button id="copy-citation" type="button">Copy</button>
+          </div>
+          <pre tabindex="0"><code id="bibtex">@article{deng2026dobottrack,
+  title={DobotTrack: Target-Grounded Vision-Language-Action Learning for Embodied Person Tracking},
+  author={Shengjun Deng and Yinghan Zhang and Chengrui Wei and Liu Liang and Songyuan Liu and Pengkun Zheng and Yajun Zheng and Ying Zhang and Yuan Tian and Xi Li and Teng Wang},
+  journal={arXiv preprint arXiv:2611.09041},
+  year={2026},
+  url={https://arxiv.org/abs/2611.09041}
+}</code></pre>
+          <p aria-live="polite" id="copy-status" role="status"></p>
+        </div>
+      </section>
+    </main>
+    <footer>DobotTrack · Research project page</footer>
+  </body>
+</html>

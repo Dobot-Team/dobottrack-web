@@ -1,0 +1,243 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1400"
+  height="540"
+  viewBox="0 0 1400 540"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">
+    DobotTrack: grounded perception, compact history, future waypoints
+  </title>
+  <desc id="desc">
+    Seven historical visual feature sets are compressed by Q-identity. These
+    tokens, current-frame features and the target instruction enter a shared
+    VLA. It predicts a target mask, target box, and eight waypoints. Cached
+    localization predictions guide region selection at subsequent decisions.
+  </desc>
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 10 10"
+      refX="9"
+      refY="5"
+      markerWidth="6"
+      markerHeight="6"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8091a6" />
+    </marker>
+    <marker
+      id="blue-arrow"
+      viewBox="0 0 10 10"
+      refX="9"
+      refY="5"
+      markerWidth="6"
+      markerHeight="6"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#194ed4" />
+    </marker>
+  </defs>
+  <rect width="1400" height="540" fill="white" />
+  <g font-family="Arial, sans-serif" fill="#172331">
+    <text x="48" y="57" font-size="12" fill="#778599" letter-spacing="2">
+      OBSERVATIONS
+    </text>
+    <text x="376" y="57" font-size="12" fill="#194ed4" letter-spacing="2">
+      VISUAL REPRESENTATION
+    </text>
+    <text x="796" y="57" font-size="12" fill="#778599" letter-spacing="2">
+      SHARED POLICY
+    </text>
+    <text x="1132" y="57" font-size="12" fill="#778599" letter-spacing="2">
+      PREDICTIONS
+    </text>
+    <rect
+      x="48"
+      y="106"
+      width="235"
+      height="116"
+      rx="9"
+      fill="#f3f6fa"
+      stroke="#dde4ed"
+    />
+    <text x="70" y="137" font-size="17" font-weight="bold">
+      Historical features
+    </text>
+    <text x="70" y="160" font-size="12" fill="#6b7889">
+      7 frames · 256 tokens / frame
+    </text>
+    <g fill="#bbc9dc">
+      <rect x="70" y="179" width="17" height="21" rx="2" />
+      <rect x="93" y="179" width="17" height="21" rx="2" />
+      <rect x="116" y="179" width="17" height="21" rx="2" />
+      <rect x="139" y="179" width="17" height="21" rx="2" />
+      <rect x="162" y="179" width="17" height="21" rx="2" />
+      <rect x="185" y="179" width="17" height="21" rx="2" />
+      <rect x="208" y="179" width="17" height="21" rx="2" />
+    </g>
+    <rect
+      x="48"
+      y="275"
+      width="235"
+      height="87"
+      rx="9"
+      fill="#f3f6fa"
+      stroke="#dde4ed"
+    />
+    <text x="70" y="310" font-size="17" font-weight="bold">
+      Current-frame features
+    </text>
+    <text x="70" y="336" font-size="12" fill="#6b7889">
+      Dense visual representation
+    </text>
+    <rect
+      x="48"
+      y="400"
+      width="235"
+      height="87"
+      rx="9"
+      fill="#f3f6fa"
+      stroke="#dde4ed"
+    />
+    <text x="70" y="434" font-size="17" font-weight="bold">
+      Target description
+    </text>
+    <text x="70" y="460" font-size="12" fill="#6b7889">
+      Appearance-based instruction
+    </text>
+    <rect
+      x="376"
+      y="106"
+      width="290"
+      height="153"
+      rx="9"
+      fill="#eef3ff"
+      stroke="#c3d2f4"
+    />
+    <text x="398" y="140" font-size="22" font-weight="bold" fill="#194ed4">
+      Q-identity
+    </text>
+    <text x="398" y="168" font-size="13">Target-region features + queries</text>
+    <text x="398" y="192" font-size="13">Full-image context aggregation</text>
+    <rect x="398" y="214" width="241" height="27" rx="4" fill="#194ed4" />
+    <text x="518" y="233" font-size="12" fill="white" text-anchor="middle">
+      16 tokens / historical frame
+    </text>
+    <rect
+      x="376"
+      y="289"
+      width="290"
+      height="60"
+      rx="7"
+      fill="#f3f6fa"
+      stroke="#dde4ed"
+    />
+    <text x="521" y="325" font-size="14" text-anchor="middle">
+      256 current-frame visual tokens
+    </text>
+    <rect
+      x="376"
+      y="413"
+      width="290"
+      height="60"
+      rx="7"
+      fill="#f3f6fa"
+      stroke="#dde4ed"
+    />
+    <text x="521" y="449" font-size="14" text-anchor="middle">
+      Instruction tokens
+    </text>
+    <rect x="796" y="150" width="224" height="275" rx="11" fill="#172b43" />
+    <text
+      x="908"
+      y="218"
+      font-size="25"
+      fill="white"
+      font-weight="bold"
+      text-anchor="middle"
+    >
+      DobotTrack
+    </text>
+    <text x="908" y="246" font-size="13" fill="#acbfd5" text-anchor="middle">
+      Shared VLA backbone
+    </text>
+    <path d="M824 269H992" stroke="#496078" />
+    <text x="908" y="305" font-size="13" fill="#d9e3ee" text-anchor="middle">
+      Chronological history
+    </text>
+    <text x="908" y="330" font-size="13" fill="#d9e3ee" text-anchor="middle">
+      Target-grounded representations
+    </text>
+    <text x="908" y="381" font-size="12" fill="#a5baf2" text-anchor="middle">
+      One forward pass
+    </text>
+    <rect
+      x="1132"
+      y="150"
+      width="220"
+      height="72"
+      rx="7"
+      fill="#eaf7ef"
+      stroke="#c3e1ce"
+    />
+    <text x="1154" y="181" font-size="16" font-weight="bold">Target mask</text>
+    <text x="1154" y="204" font-size="12" fill="#5b7e69">
+      Foreground delineation
+    </text>
+    <rect
+      x="1132"
+      y="252"
+      width="220"
+      height="72"
+      rx="7"
+      fill="#eaf7ef"
+      stroke="#c3e1ce"
+    />
+    <text x="1154" y="283" font-size="16" font-weight="bold">Target box</text>
+    <text x="1154" y="306" font-size="12" fill="#5b7e69">
+      Location, extent &amp; visibility
+    </text>
+    <rect
+      x="1132"
+      y="354"
+      width="220"
+      height="72"
+      rx="7"
+      fill="#eef3ff"
+      stroke="#c3d2f4"
+    />
+    <text x="1154" y="385" font-size="16" font-weight="bold">
+      Future waypoints
+    </text>
+    <text x="1154" y="408" font-size="12" fill="#627ca9">8 steps · 10 Hz</text>
+    <g stroke="#8091a6" stroke-width="1.7" fill="none" marker-end="url(#arrow)">
+      <path d="M283 164H376" />
+      <path d="M283 319H376" />
+      <path d="M283 444H376" />
+      <path d="M666 181H730V220H796" />
+      <path d="M666 319H796" />
+      <path d="M666 443H730V383H796" />
+      <path d="M1020 220H1074V186H1132" />
+      <path d="M1020 287H1132" />
+      <path d="M1020 355H1074V390H1132" />
+    </g>
+    <path
+      d="M1242 150V87H521V106"
+      stroke="#194ed4"
+      stroke-width="1.7"
+      stroke-dasharray="5 5"
+      fill="none"
+      marker-end="url(#blue-arrow)"
+    />
+    <rect x="730" y="75" width="372" height="24" fill="white" />
+    <text x="916" y="92" text-anchor="middle" font-size="12" fill="#194ed4">
+      Cached target localization · subsequent decisions
+    </text>
+    <text x="48" y="523" font-size="11" fill="#8692a1">
+      Conceptual overview · historical target regions guide compression;
+      current-frame features remain dense.
+    </text>
+  </g>
+</svg>
